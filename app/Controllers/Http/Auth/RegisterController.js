@@ -33,12 +33,12 @@ class RegisterController {
     })
 
     // send confirmation email
-    await Mail.send('auth.emails.confirm_email', user.toJSON(), message => {
-      message
-        .to(user.email)
-        .from('hello@adonisjs.com')
-        .subject('Please confirm your email address')
-    })
+    // await Mail.send('auth.emails.confirm_email', user.toJSON(), message => {
+    //   message
+    //     .to(user.email)
+    //     .from('hello@adonisjs.com')
+    //     .subject('Please confirm your email address')
+    // })
 
     // display success message
     session.flash({
@@ -48,7 +48,27 @@ class RegisterController {
       }
     })
 
-    return response.redirect('back')
+     // get user with the cinfirmation token
+     const userComfirm = await User.findBy('confirmation_token', user.confirmation_token)
+
+     // set confirmation to null and is_active to true
+     userComfirm.confirmation_token = null
+     userComfirm.is_active = true
+ 
+     // persist user to database
+     await userComfirm.save()
+ 
+     // display success message
+     session.flash({
+       notification: {
+         type: 'success',
+         message: 'Your email address has been confirmed.'
+       }
+     })
+ 
+     return response.redirect('/login')
+
+    // return response.redirect('back')
   }
 
   async confirmEmail ({ params, session, response }) {
