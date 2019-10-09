@@ -1,21 +1,26 @@
 'use strict'
 
-/*
-|--------------------------------------------------------------------------
-| Routes
-|--------------------------------------------------------------------------
-|
-| Http routes are entry points to your web application. You can create
-| routes for different URL's and bind Controller actions to them.
-|
-| A complete guide on routing is available here.
-| http://adonisjs.com/docs/4.0/routing
-|
-*/
-
 const Route = use('Route')
+const Course = use('App/Models/Course')
+
+// Route.get('/test', async ({view}) => {
+//   const course = await Course
+//     .query()
+//     .orderBy('id', 'desc')
+
+//     console.log(course)
+//   // return view.render('course.course', { courses: course.rows })
+//   return course
+// })
+
+Route.get('apicourse', 'ApiCourseController.index')
 
 Route.on('/').render('home').as('home').middleware(['auth'])
+
+// Route.get('course', 'CourseController.index').middleware(['auth'])
+Route.resource('course', 'CourseController').middleware(['auth'])
+Route.delete('course/:id', 'CourseController.destroy').middleware(['auth'])
+Route.put('course/:id', 'CourseController.update').middleware(['auth'])
 
 Route.get('register', 'Auth/RegisterController.showRegisterForm').middleware([
   'authenticated'

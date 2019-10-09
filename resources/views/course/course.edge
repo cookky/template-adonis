@@ -1,0 +1,261 @@
+@layout('template')
+
+@section('content')
+<div class="row">
+    <div class="col-sm-12">
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Admin</a></li>
+      <li class="breadcrumb-item active">Course</li>
+    </ol>
+  </nav>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-3 text-center">
+      
+        <button type="button" class="btn btn-outline-custom-success waves-effect" data-toggle="modal" data-target="#modelAdd">
+            <i class="fas fa-plus"></i> เพิ่ม
+        </button>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="modelAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-success" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <p class="heading lead">เพิ่ม course</p>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="white-text">&times;</span>
+          </button>
+        </div>
+
+        <form method="POST" action="/course" enctype="multipart/form-data">
+          {{ csrfField() }}
+
+        <div class="modal-body">
+
+            <div class="md-form">
+                <input type="text" name="title" id="form-autocomplete" class="form-control mdb-autocomplete" required>
+                <label for="form-autocomplete" class="active">ชื่อ course</label>
+            </div>
+
+            <div class="md-form">
+                <input type="text" name="date" id="form-autocomplete" class="form-control mdb-autocomplete" required>
+                <label for="form-autocomplete" class="active">วันที่</label>
+            </div>
+
+
+              <div class="form-group custom-form-group">
+                  <label for="form1">รูป Cours</label> <br>
+                  <input type="file" name="image" required>
+                  
+                </div>
+
+                <div class="form-group custom-form-group">
+                    <label for="form1">Course Detail</label>
+                    <textarea class="form-control" name="detail" rows="10" required></textarea>
+                    
+                  </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Save</button>
+        </div>
+
+      </form>
+
+      </div>
+    </div>
+  </div>
+
+    </div>
+
+  @if(course)
+    @each(c in course)
+    
+    <div class="col-3">
+        <!-- Card Regular -->
+  <div class="card card-cascade">
+  
+      <!-- Card image -->
+      <div class="view view-cascade overlay">
+        <img class="card-img-top" src="images/{{c.image}}" alt="Card image cap">
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+    
+      <!-- Card content -->
+      <div class="card-body card-body-cascade">
+    
+        <!-- Title -->
+        <h5 class="card-title"><strong class="text-overflow">{{c.title}}</strong></h5>
+        <!-- Subtitle -->
+        <h6 class="font-weight-bold indigo-text py-2">{{c.date}}</h6>
+        <!-- Text -->
+        
+        </p>
+    
+        <hr>
+  
+        <button type="button" class="btn-sm btn btn-info waves-effect" data-toggle="modal" data-target="#modalShow{{c.id}}">
+            <i class="fas fa-info"></i>
+        </button>
+
+        <!-- Modal -->
+<div class="modal fade" id="modalShow{{c.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-notify modal-info" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+        <p class="heading lead">course</p>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true" class="white-text">&times;</span>
+      </button>
+    </div>
+
+
+    <div class="modal-body">
+
+        <div class="md-form">
+            <h4 for="form-autocomplete" class="active">ชื่อ course {{c.title}}</h4>
+        </div>
+
+        <div class="md-form">
+        <h5 for="form-autocomplete" class="active">วันที่ {{c.date}}</h5>
+        </div>
+
+
+          <div class="form-group custom-form-group">
+              <label for="form1">รูป Cours</label> <br>
+          <img src="images/{{c.image}}" alt="" width="200" height="150">
+              
+            </div>
+
+            <div class="form-group custom-form-group">
+                <label for="form1">Course Detail</label>
+            <p>{{c.detail}}</p>
+                
+              </div>
+
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-info" data-dismiss="modal">Close</button>
+    </div>
+
+  </div>
+</div>
+</div>
+
+
+        <button type="button" class="btn-sm btn btn-warning waves-effect" data-toggle="modal" data-target="#modalEdit{{c.id}}">
+            <i class="far fa-edit"></i>
+        </button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalEdit{{c.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-success" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <p class="heading lead">แก้ไข course</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+    <form method="POST" action="/course/{{c.id}}?_method=put" enctype="multipart/form-data">
+        {{ csrfField() }}
+
+      <div class="modal-body">
+
+          <div class="md-form">
+          <input type="text" name="title" id="form-autocomplete" class="form-control mdb-autocomplete" value="{{c.title}}" required>
+              <label for="form-autocomplete" class="active">ชื่อ course</label>
+          </div>
+
+          <div class="md-form">
+              <input type="text" name="date" id="form-autocomplete" class="form-control mdb-autocomplete"  value="{{c.date}}" required>
+              <label for="form-autocomplete" class="active">วันที่</label>
+          </div>
+
+
+            <div class="form-group custom-form-group">
+                <label for="form1">รูป Cours</label> <br>
+                <input type="file" name="image">
+                
+              </div>
+
+              <div class="form-group custom-form-group">
+                  <label for="form1">Course Detail</label>
+              <textarea class="form-control" name="detail" rows="10" required>{{c.detail}}</textarea>
+                  
+                </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
+
+    </form>
+
+    </div>
+  </div>
+</div>
+        
+
+
+      <button type="button" class="btn-sm btn btn-danger waves-effect" data-toggle="modal" data-target="#modalDel{{c.id}}">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalDel{{c.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <p class="heading lead">ลบ course</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+    <p>ยืนยันการลบ?</p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+      <form method="POST" action="/course/{{c.id}}?_method=delete" >
+        {{ csrfField() }}
+        <button type="submit" class="btn btn-danger">Confirm </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+      </div>
+    
+    </div>
+    <!-- Card Regular -->
+      </div>
+
+  @endeach
+
+  @endif
+
+</div>
+
+
+@endsection
