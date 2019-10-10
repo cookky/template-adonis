@@ -4,48 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Complete Authentication In AdonisJs</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
+  <title>Hacktag Space</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-
-  <nav class="navbar is-dark">
-    <div class="container">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">AdonisJs</a>
-
-        <button class="button navbar-burger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-
-      <div class="navbar-menu">
-        <div class="navbar-end">
-          @loggedIn
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">
-                {{ auth.user.username }}
-              </a>
-              <div class="navbar-dropdown">
-                <a class="navbar-item" href="/logout">Logout</a>
-              </div>
-            </div>
-          @else
-            <a class="navbar-item" href="/login">Login</a>
-            <a class="navbar-item" href="/register">Register</a>
-          @endloggedIn
-        </div>
-      </div>
-    </div>
-  </nav>
 
   <div class="section">
     <div class="container">
       @!section('content')
     </div>
   </div>
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
 
 </body>
 </html>
