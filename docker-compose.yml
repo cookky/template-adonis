@@ -14,8 +14,8 @@ services:
 
   www:
     build:
-      context: ./
-      dockerfile: Dockerfile
+    context: ./
+    dockerfile: Dockerfile
     container_name: www
     restart: always
 #    volumes:
@@ -31,7 +31,7 @@ services:
    volumes:
      - ./services/mysql/data/:/var/lib/mysql
    environment:
-     MYSQL_ROOT_PASSWORD: Qazwsx@123
+   MYSQL_ROOT_PASSWORD: Qazwsx@123
    ports:
      - 3306:3306
 
