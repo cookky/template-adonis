@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+#  nginx:
+#    image: nginx:1.17.2
+#    container_name: nginx
+#    restart: always
+#    volumes:
+#      - ./services/nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
+#      - ./services/nginx/conf.d:/etc/nginx/conf.d:ro
+##      - ./www/backoffice/dist:/var/www/html/backoffice
+#    ports:
+#      - 80:80
+
+  www:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: www
+    restart: always
+#    volumes:
+#      - .:/src
+    ports:
+      - 3000:80
+
+#  database:
+#    image: mysql:latest
+#    container_name: mysql
+#    restart: always
+#    command: --default-authentication-plugin=mysql_native_password
+#    volumes:
+#      - ./services/mysql/data/:/var/lib/mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: Qazwsx@123
+#    ports:
+#      - 3306:3306
+#
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin
+#    container_name: phpmyadmin
+#    restart: always
+#    links:
+#      - database:db
+#    ports:
+#      - 8888:80
+

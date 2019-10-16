@@ -8,14 +8,17 @@ const Helpers = use('Helpers')
 class CourseController {
 
     async index({ params, view }) {
+
         const { currentPage = 1, perPage = 50 } = params
 
-        const course = await Course
-                .query()
-                .orderBy('id', 'desc')
-                .paginate(currentPage, perPage)
+        let course = await Course
+            .query()
+            .orderBy('id', 'desc')
+            .paginate(currentPage, perPage)
 
-        return view.render('course.course', { course: course.rows })
+        course = course.toJSON()
+
+        return view.render('course.course', { course: course.data })
     }
 
     async store({ request, response, view }) {
