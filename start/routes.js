@@ -23,11 +23,11 @@ Route.resource('course', 'CourseController').middleware(['auth'])
 Route.delete('course/:id', 'CourseController.destroy').middleware(['auth'])
 Route.put('course/:id', 'CourseController.update').middleware(['auth'])
 
-Route.get('register', 'Auth/RegisterController.showRegisterForm').middleware([
-  'authenticated'
-])
-Route.post('register', 'Auth/RegisterController.register').as('register')
-Route.get('register/confirm/:token', 'Auth/RegisterController.confirmEmail')
+// Route.get('register', 'Auth/RegisterController.showRegisterForm').middleware([
+//   'authenticated'
+// ])
+// Route.post('register', 'Auth/RegisterController.register').as('register')
+// Route.get('register/confirm/:token', 'Auth/RegisterController.confirmEmail')
 Route.get('login', 'Auth/LoginController.showLoginForm').middleware([
   'authenticated'
 ])
