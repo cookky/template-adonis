@@ -34,7 +34,7 @@ class LoginController {
     session.flash({
       notification: {
         type: 'danger',
-        message: `We couldn't verify your credentials. Make sure you've confirmed your email address.`
+        message: `อีเมลล์หรือรหัสผ่านไม่ถูกต้อง`
       }
     })
 

@@ -21,7 +21,7 @@ services:
 #    volumes:
 #      - .:/src
     ports:
-      - 3000:80
+      - 80:80
 
   database:
     image: mysql:latest
