@@ -43,4 +43,3 @@ services:
       - database:db
     ports:
       - 8888:80
-
